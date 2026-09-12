@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Menu, X, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -50,14 +51,13 @@ export function Navbar({ transparent = false }: NavbarProps) {
           aria-label="TutorMeet home"
         >
           {/* Logo mark */}
-          <div className={cn(
-            "flex h-8 w-8 items-center justify-center rounded-xl transition-colors duration-150",
-            isOpaque
-              ? "bg-brand-900 text-white group-hover:bg-brand-800"
-              : "bg-white/20 text-white group-hover:bg-white/30"
-          )}>
-            <ShieldCheck className="h-4.5 w-4.5" />
-          </div>
+          <Image 
+            src="/icons/icon-192x192.png" 
+            alt="TutorMeet Logo" 
+            width={32} 
+            height={32} 
+            className="h-8 w-8"
+          />
 
           {/* Wordmark */}
           <span className={cn(
@@ -66,7 +66,7 @@ export function Navbar({ transparent = false }: NavbarProps) {
           )}
             style={{ letterSpacing: "-0.02em" }}
           >
-            {APP_NAME}
+            <span>Tutor<span className="text-blue-500">Meet</span></span>
           </span>
         </Link>
 

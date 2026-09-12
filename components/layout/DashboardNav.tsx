@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, LogOut, ShieldCheck } from "lucide-react";
@@ -66,7 +67,7 @@ export function DashboardNav({
               className="hidden text-base font-bold text-navy-900 sm:block tracking-tight"
               style={{ letterSpacing: "-0.02em" }}
             >
-              {APP_NAME}
+              <span>Tutor<span className="text-blue-500">Meet</span></span>
             </span>
           </Link>
 
@@ -209,7 +210,7 @@ export function DashboardNav({
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-900 text-white">
               <ShieldCheck className="h-3.5 w-3.5" />
             </div>
-            <span className="text-sm font-bold text-navy-900">{APP_NAME}</span>
+            <span className="text-sm font-bold text-navy-900"><span>Tutor<span className="text-blue-500">Meet</span></span></span>
           </Link>
           <button
             onClick={() => setOpen(false)}

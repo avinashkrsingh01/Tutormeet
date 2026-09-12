@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ShieldCheck, MapPin } from "lucide-react";
 import { APP_NAME, APP_TAGLINE } from "@/lib/constants";
 
@@ -50,7 +51,7 @@ export function Footer() {
                   className="block text-lg font-bold text-white tracking-tight"
                   style={{ letterSpacing: "-0.02em" }}
                 >
-                  {APP_NAME}
+                  <span>Tutor<span className="text-blue-500">Meet</span></span>
                 </span>
               </div>
             </Link>
