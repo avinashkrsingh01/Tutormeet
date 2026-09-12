@@ -25,6 +25,7 @@ import {
   Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { TiltCard } from "@/components/ui/TiltCard";
 import { APP_NAME, APP_TAGLINE, GRADES, SUBJECTS, TIME_SLOTS } from "@/lib/constants";
 import { SearchForm } from "@/components/home/SearchForm";
 
@@ -186,32 +187,36 @@ const stats = [
 
 function StatsSection() {
   return (
-    <section className="border-b border-neutral-100 bg-white py-12">
+    <section className="border-b border-neutral-100 bg-white py-16">
       <div className="container-page">
-        <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="flex flex-col items-center gap-2 rounded-2xl border border-neutral-100 bg-neutral-50 p-6 text-center"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-700">
-                {stat.icon}
+            <TiltCard key={stat.label} maxTilt={10} scale={1.03}>
+              <div className="flex h-full flex-col items-center justify-center gap-6 rounded-[2rem] bg-neutral-50/70 p-10 text-center transition-colors hover:bg-white border border-transparent hover:border-neutral-100">
+                
+                {/* Icon in light blue circle */}
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#f3f6fc] text-brand-700">
+                  {stat.icon}
+                </div>
+                
+                {/* Thick dash instead of "—" text */}
+                <div className="h-1 w-6 rounded-full bg-navy-900" />
+                
+                {/* Text section */}
+                <div className="space-y-1">
+                  <h3 className="text-[15px] font-bold text-[#232f48] leading-none">
+                    {stat.label}
+                  </h3>
+                  <p className="text-[13px] font-medium text-[#b5b8c3]">
+                    {stat.sub}
+                  </p>
+                </div>
+                
               </div>
-              <p
-                className="text-3xl font-extrabold text-navy-900"
-                style={{ letterSpacing: "-0.03em" }}
-                aria-label={`${stat.value} ${stat.label}`}
-              >
-                {stat.value}
-              </p>
-              <div>
-                <p className="text-sm font-semibold text-navy-900">{stat.label}</p>
-                <p className="text-xs text-neutral-400">{stat.sub}</p>
-              </div>
-            </div>
+            </TiltCard>
           ))}
         </div>
-        <p className="mt-4 text-center text-xs text-neutral-400">
+        <p className="mt-8 text-center text-xs font-medium text-neutral-400">
           — Placeholder values. Real statistics will be displayed once TutorMeet launches.
         </p>
       </div>
