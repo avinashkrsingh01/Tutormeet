@@ -7,6 +7,7 @@ import { Menu, X, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { APP_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { LocationNavButton } from "./LocationNavButton";
 
 interface NavbarProps {
   transparent?: boolean;
@@ -44,31 +45,36 @@ export function Navbar({ transparent = false }: NavbarProps) {
     >
       <nav className="container-page flex h-16 items-center justify-between">
 
-        {/* ── Logo ──────────────────────────────────────────────── */}
-        <Link
-          href="/"
-          className="flex items-center gap-2.5 group"
-          aria-label="TutorMeet home"
-        >
-          {/* Logo mark */}
-          <Image 
-            src="/icons/icon-192x192.png" 
-            alt="TutorMeet Logo" 
-            width={32} 
-            height={32} 
-            className="h-8 w-8"
-          />
-
-          {/* Wordmark */}
-          <span className={cn(
-            "text-2xl font-bold tracking-tight transition-colors",
-            isOpaque ? "text-navy-900" : "text-white"
-          )}
-            style={{ letterSpacing: "-0.02em" }}
+        {/* ── Logo & Location ────────────────────────────────────── */}
+        <div className="flex items-center gap-4">
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 group"
+            aria-label="TutorMeet home"
           >
-            <span>Tutor<span className="text-blue-500">Meet</span></span>
-          </span>
-        </Link>
+            {/* Logo mark */}
+            <Image 
+              src="/icons/icon-192x192.png" 
+              alt="TutorMeet Logo" 
+              width={32} 
+              height={32} 
+              className="h-8 w-8"
+            />
+
+            {/* Wordmark */}
+            <span className={cn(
+              "text-2xl font-bold tracking-tight transition-colors",
+              isOpaque ? "text-navy-900" : "text-white"
+            )}
+              style={{ letterSpacing: "-0.02em" }}
+            >
+              <span>Tutor<span className="text-blue-500">Meet</span></span>
+            </span>
+          </Link>
+
+          {/* Location Picker (Amazon style) */}
+          <LocationNavButton isOpaque={isOpaque} />
+        </div>
 
         {/* ── Desktop nav links ──────────────────────────────────── */}
         <div className="hidden items-center gap-1 md:flex">
