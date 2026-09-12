@@ -9,8 +9,12 @@ interface DashboardShellProps {
 
 export function DashboardShell({ children, className }: DashboardShellProps) {
   return (
-    <div className={cn("min-h-screen bg-neutral-50", className)}>
-      {children}
+    <div className={cn("min-h-screen bg-neutral-50 bg-dot-pattern relative", className)}>
+      {/* Subtle radial glow in the background for depth */}
+      <div className="absolute top-0 left-0 h-[40vh] w-full bg-gradient-to-b from-brand-50/50 to-transparent pointer-events-none" />
+      <div className="relative z-10">
+        {children}
+      </div>
     </div>
   );
 }

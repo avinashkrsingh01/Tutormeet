@@ -212,9 +212,10 @@
 
   /* Base — shared across all button variants */
   .btn {
+    @apply active:scale-[0.98];
     @apply inline-flex items-center justify-center gap-2
            font-semibold tracking-tight
-           transition-all duration-150
+           transition-all duration-200
            focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
            disabled:cursor-not-allowed disabled:opacity-50
            select-none;
@@ -347,7 +348,7 @@
   /* Interactive hover card */
   .card-hover {
     @apply card cursor-pointer
-           hover:shadow-md hover:border-brand-200
+           hover:shadow-lg hover:border-brand-200 hover:-translate-y-1
            transition-all duration-200;
   }
 
@@ -369,6 +370,15 @@
   /* Teal accent card */
   .card-teal {
     @apply rounded-2xl bg-accent-50 border border-accent-200;
+  }
+
+  
+  /* Figma Glassmorphic card */
+  .card-glass {
+    @apply rounded-2xl border border-white/20 bg-white/70 backdrop-blur-md shadow-sm;
+  }
+  .card-glass-hover {
+    @apply card-glass cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-brand-200/50 hover:bg-white/90;
   }
 
   /* ─── Divider ─────────────────────────────────────────────── */

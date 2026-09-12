@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import Image from "next/image";
 import { Eye, EyeOff, GraduationCap, Users, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -291,16 +292,14 @@ export function RegisterForm({
 
   return (
     <div className="w-full max-w-md">
-      <div className="rounded-3xl border border-neutral-200 bg-white shadow-lg">
+      <div className="bg-white">
         {/* Top accent */}
-        <div className="h-1 w-full rounded-t-3xl bg-gradient-to-r from-brand-900 via-brand-700 to-accent-500" />
+        
 
-        <div className="p-7 sm:p-8">
+        <div className="py-8">
           {/* Header */}
           <div className="mb-7 text-center">
-            <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-brand-900 text-white">
-              <ShieldCheck className="h-5 w-5" />
-            </div>
+            
             <h1
               className="text-xl font-bold text-navy-900"
               style={{ letterSpacing: "-0.02em" }}

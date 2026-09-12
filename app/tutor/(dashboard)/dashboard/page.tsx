@@ -421,7 +421,7 @@ export default async function TutorDashboardPage() {
       )}
 
       {/* Main two-column grid */}
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 animate-fade-in" style={{ animationDelay: "200ms", animationFillMode: "both" }}>
         {/* Pipeline / students */}
         {!isVerified ? (
           <PipelineTracker status={status} />

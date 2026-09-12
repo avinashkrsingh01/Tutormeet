@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { APP_NAME, APP_TAGLINE } from "@/lib/constants";
+import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 
 export default function AuthLayout({
   children,
@@ -7,32 +9,75 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50">
-      {/* Minimal header */}
-      <header className="border-b border-gray-200 bg-white">
-        <div className="container-page flex h-14 items-center">
+    <div className="flex min-h-screen bg-white">
+      {/* Left side: Beautiful branding / image (Hidden on mobile) */}
+      <div className="hidden w-1/2 flex-col justify-between border-r border-neutral-100 bg-brand-50/50 p-12 lg:flex relative overflow-hidden bg-dot-pattern">
+        
+        {/* Soft radial glow in background */}
+        <div className="absolute -left-[20%] -top-[20%] h-[70%] w-[70%] rounded-full bg-accent-500/10 blur-[120px]" />
+        <div className="absolute -bottom-[20%] -right-[20%] h-[70%] w-[70%] rounded-full bg-brand-500/10 blur-[120px]" />
+
+        <div className="relative z-10">
           <Link
             href="/"
-            className="flex items-center gap-2 text-lg font-bold text-brand-700"
+            className="inline-flex items-center gap-3 transition-transform hover:scale-105"
           >
-            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-brand-600 text-xs font-bold text-white">
-              TM
+            <Image 
+              src="/icons/icon-192x192.png" 
+              alt="TutorMeet Logo" 
+              width={40} 
+              height={40} 
+              className="h-10 w-10 shadow-sm"
+            />
+            <span className="text-2xl font-bold tracking-tight">
+              <span className="text-navy-900">Tutor</span><span className="text-blue-500">Meet</span>
             </span>
-            <span>{APP_NAME}</span>
           </Link>
-          <span className="ml-3 hidden text-sm text-gray-400 sm:block">
-            — {APP_TAGLINE}
-          </span>
+          <h1 className="mt-16 text-4xl font-bold leading-tight tracking-tight text-navy-900">
+            Find the perfect home tutor for your child.
+          </h1>
+          <p className="mt-4 max-w-md text-lg text-neutral-600">
+            {APP_TAGLINE} Join thousands of parents and verified tutors building a better learning experience.
+          </p>
         </div>
-      </header>
 
-      <main className="flex flex-1 items-center justify-center px-4 py-12">
-        {children}
+        <div className="relative z-10 flex items-center gap-4 text-sm font-medium text-navy-900">
+          <div className="flex -space-x-3">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-10 w-10 overflow-hidden rounded-full border-2 border-white bg-neutral-200">
+                <img src={`https://api.dicebear.com/7.x/notionists/svg?seed=${i}&backgroundColor=eef2f9`} alt="User" />
+              </div>
+            ))}
+          </div>
+          <p>Over <span className="font-bold text-accent-600">5,000+</span> verified tutors</p>
+        </div>
+      </div>
+
+      {/* Right side: Auth Form */}
+      <main className="flex w-full flex-1 flex-col items-center justify-center px-4 py-12 sm:px-6 lg:w-1/2 lg:px-8 xl:px-12 relative animate-fade-in">
+        
+        {/* Mobile Header (Only visible on small screens) */}
+        <div className="absolute top-6 left-6 lg:hidden">
+          <Link href="/" className="inline-flex items-center gap-2">
+            <Image 
+              src="/icons/icon-192x192.png" 
+              alt="TutorMeet Logo" 
+              width={32} 
+              height={32} 
+              className="h-8 w-8 shadow-sm"
+            />
+            <span className="text-xl font-bold tracking-tight">
+              <span className="text-navy-900">Tutor</span><span className="text-blue-500">Meet</span>
+            </span>
+          </Link>
+        </div>
+
+        <div className="w-full max-w-md">
+          {children}
+        </div>
       </main>
 
-      <footer className="border-t border-gray-200 py-4 text-center text-xs text-gray-400">
-        &copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.
-      </footer>
+      <FloatingWhatsApp />
     </div>
   );
 }

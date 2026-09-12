@@ -39,7 +39,7 @@ function StatTile({
 }) {
   return (
     <Link href={href} className="block">
-      <div className="flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-white p-5 transition-all duration-200 hover:border-brand-200 hover:shadow-sm">
+      <div className="flex flex-col gap-3 card-glass-hover p-5 animate-fade-in">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
           {icon}
         </div>
@@ -158,7 +158,7 @@ export default async function ParentDashboardPage() {
       </div>
 
       {/* Stat tiles */}
-      <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4 animate-fade-in" style={{ animationDelay: "100ms" }}>
         <StatTile
           icon={<ClipboardList className="h-5 w-5" />}
           label="Active Requirements"
@@ -186,7 +186,7 @@ export default async function ParentDashboardPage() {
       </div>
 
       {/* Two-column sections */}
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 animate-fade-in" style={{ animationDelay: "200ms", animationFillMode: "both" }}>
 
         {/* My Requirements */}
         <SectionCard
