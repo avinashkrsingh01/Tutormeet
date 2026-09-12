@@ -7,6 +7,7 @@ import { TutorCard } from "./TutorCard";
 import { TutorFilterPanel, activeFilterCount } from "./TutorFilterPanel";
 import { TutorSortBar } from "./TutorSortBar";
 import { TutorPagination } from "./TutorPagination";
+import { useLocation } from "@/components/layout/LocationProvider";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { cn } from "@/lib/utils";
 import type { TutorCard as TutorCardType } from "@/types/tutor";
@@ -68,12 +69,28 @@ export function TutorSearchPage() {
   const router      = useRouter();
   const pathname    = usePathname();
   const searchParams = useSearchParams();
+  const { location } = useLocation();
 
   const [filters, setFilters]       = useState<TutorFilters>(() => paramsToFilters(searchParams));
   const [result,  setResult]        = useState<SearchResult | null>(null);
   const [isPending, startTransition] = useTransition();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [quickCity, setQuickCity]   = useState("");
+
+  // Sync global location if local filters don't have a city set yet
+  useEffect(() => {
+    if (location) {
+      setFilters((prev) => {
+        // If we already have something or it's unchanged, don't trigger re-render loop
+        if ((prev.city || !location.city) && (prev.pincode || !location.pincode)) return prev;
+        return {
+          ...prev,
+          city: prev.city || location.city,
+          pincode: prev.pincode || location.pincode,
+        };
+      });
+    }
+  }, [location]);
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 

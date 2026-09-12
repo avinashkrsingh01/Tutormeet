@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useLocation } from "@/components/layout/LocationProvider";
 import {
   User,
   BookOpen,
@@ -181,6 +182,8 @@ export function RequirementForm({
   const [serverError, setServerError] = useState<string | null>(null);
   const [isPending, startTransition]  = useTransition();
 
+  const { location } = useLocation();
+
   const {
     register,
     control,
@@ -188,6 +191,7 @@ export function RequirementForm({
     watch,
     trigger,
     getValues,
+    setValue,
     formState: { errors },
   } = useForm<RequirementInput>({
     resolver: zodResolver(requirementSchema),
@@ -204,12 +208,22 @@ export function RequirementForm({
       sessions_per_week:       3,
       session_duration_minutes: 60,
       locality:                parentLocality,
-      city:                    parentCity,
-      pincode:                 "",
+      city:                    parentCity || location?.city || "",
+      pincode:                 location?.pincode || "",
       budget_per_hour:         null,  // stored as monthly budget
       special_requirements:   "",
     },
   });
+
+  // Sync with global location if available
+  useEffect(() => {
+    if (location) {
+      const currentCity = getValues("city");
+      const currentPincode = getValues("pincode");
+      if (!currentCity) setValue("city", location.city);
+      if (!currentPincode) setValue("pincode", location.pincode);
+    }
+  }, [location, getValues, setValue]);
 
   // Field groups per step for validation
   const stepFields: (keyof RequirementInput)[][] = [

@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useLocation } from "@/components/layout/LocationProvider";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
@@ -71,9 +72,10 @@ export function TutorProfileForm({ userId, tutorProfile }: TutorProfileFormProps
 
   // Read from new flattened columns (locality/city/pincode instead of address JSONB)
   const addressData = tutorProfile?.address as Record<string, string> | null;
+  const { location } = useLocation();
 
   const {
-    register, control, handleSubmit, formState: { errors },
+    register, control, handleSubmit, setValue, getValues, formState: { errors },
   } = useForm<TutorProfileInput>({
     resolver: zodResolver(tutorProfileSchema),
     defaultValues: {
@@ -91,10 +93,17 @@ export function TutorProfileForm({ userId, tutorProfile }: TutorProfileFormProps
       gender:               (tutorProfile?.gender               as TutorProfileInput["gender"]) ?? "male",
       // New flattened columns take priority; fall back to legacy address JSONB
       locality: (tutorProfile?.locality as string) ?? addressData?.locality ?? "",
-      city:     (tutorProfile?.city     as string) ?? addressData?.city     ?? "",
-      pincode:  (tutorProfile?.pincode  as string) ?? addressData?.pincode  ?? "",
+      city:     (tutorProfile?.city     as string) ?? addressData?.city     ?? location?.city    ?? "",
+      pincode:  (tutorProfile?.pincode  as string) ?? addressData?.pincode  ?? location?.pincode ?? "",
     },
   });
+
+  useEffect(() => {
+    if (location) {
+      if (!getValues("city")) setValue("city", location.city);
+      if (!getValues("pincode")) setValue("pincode", location.pincode);
+    }
+  }, [location, getValues, setValue]);
 
   function onSubmit(data: TutorProfileInput) {
     setServerError(null); setSuccess(false);

@@ -39,7 +39,7 @@ export function LocationNavButton({ isOpaque }: LocationNavButtonProps) {
             isOpaque ? "text-neutral-500" : "text-white/80"
           )}
         >
-          {location ? "Deliver to" : "Select your"}
+          {location ? "Your location" : "Select your"}
         </span>
         <span
           className={cn(

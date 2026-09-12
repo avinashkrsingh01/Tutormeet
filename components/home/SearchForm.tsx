@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search, ChevronDown, ArrowRight, MapPin, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { useLocation } from "@/components/layout/LocationProvider";
 import { GRADES, SUBJECTS, TIME_SLOTS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -119,14 +120,23 @@ function StyledInput({
 
 export function SearchForm() {
   const router = useRouter();
+  const { location } = useLocation();
 
   const [studentClass, setStudentClass] = useState("");
   const [subject,      setSubject]      = useState("");
-  const [city,         setCity]         = useState("");
-  const [locality,     setLocality]     = useState("");
+  const [city,         setCity]         = useState(location?.city || "");
+  const [locality,     setLocality]     = useState(location?.pincode || "");
   const [timeSlot,     setTimeSlot]     = useState("");
   const [budget,       setBudget]       = useState("");
   const [isLocating, setIsLocating] = useState(false);
+
+  // Sync with global location if it changes
+  useEffect(() => {
+    if (location) {
+      if (!city) setCity(location.city);
+      if (!locality) setLocality(location.pincode);
+    }
+  }, [location]);
 
   async function handleDetectLocation() {
     if (!navigator.geolocation) {

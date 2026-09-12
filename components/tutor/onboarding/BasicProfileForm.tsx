@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, User, MapPin, FileText, Camera } from "lucide-react";
+import { useLocation } from "@/components/layout/LocationProvider";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
@@ -41,14 +42,29 @@ export function BasicProfileForm({ defaultValues }: BasicProfileFormProps) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [isPending, startTransition]  = useTransition();
 
+  const { location } = useLocation();
+
   const {
     register,
     handleSubmit,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<TutorBasicProfileInput>({
     resolver: zodResolver(tutorBasicProfileSchema),
-    defaultValues,
+    defaultValues: {
+      ...defaultValues,
+      city: defaultValues.city || location?.city || "",
+      pincode: defaultValues.pincode || location?.pincode || "",
+    },
   });
+
+  useEffect(() => {
+    if (location) {
+      if (!getValues("city")) setValue("city", location.city);
+      if (!getValues("pincode")) setValue("pincode", location.pincode);
+    }
+  }, [location, getValues, setValue]);
 
   function onSubmit(data: TutorBasicProfileInput) {
     setServerError(null);
