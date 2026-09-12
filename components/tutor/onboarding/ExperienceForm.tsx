@@ -120,7 +120,7 @@ export function ExperienceForm({ existing, existingYears }: ExperienceFormProps)
     });
   };
 
-  const expErrors = errors.experience;
+  const expErrors = errors.experience as any;
 
   return (
     <form onSubmit={handleSubmit(handleValid)} noValidate className="space-y-6">
