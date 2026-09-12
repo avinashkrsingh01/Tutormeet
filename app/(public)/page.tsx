@@ -23,9 +23,11 @@ import {
   Award,
   UserCheck,
   Heart,
+  Smile,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { TiltCard } from "@/components/ui/TiltCard";
+import { CoverFlowCarousel } from "@/components/ui/CoverFlowCarousel";
 import { APP_NAME, APP_TAGLINE, GRADES, SUBJECTS, TIME_SLOTS } from "@/lib/constants";
 import { SearchForm } from "@/components/home/SearchForm";
 
@@ -173,6 +175,12 @@ const stats = [
   },
   {
     value: "—",
+    label: "Parents Satisfied",
+    sub: "Trusted by families",
+    icon: <Smile className="h-6 w-6" />,
+  },
+  {
+    value: "—",
     label: "Cities",
     sub: "Starting with Bengaluru",
     icon: <MapPin className="h-6 w-6" />,
@@ -186,36 +194,35 @@ const stats = [
 ];
 
 function StatsSection() {
-  return (
-    <section className="border-b border-neutral-100 bg-white py-16">
-      <div className="container-page">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => (
-            <TiltCard key={stat.label} maxTilt={10} scale={1.03}>
-              <div className="flex h-full flex-col items-center justify-center gap-6 rounded-[2rem] bg-neutral-50/70 p-10 text-center transition-colors hover:bg-white border border-transparent hover:border-neutral-100">
-                
-                {/* Icon in light blue circle */}
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#f3f6fc] text-brand-700">
-                  {stat.icon}
-                </div>
-                
-                {/* Thick dash instead of "—" text */}
-                <div className="h-1 w-6 rounded-full bg-navy-900" />
-                
-                {/* Text section */}
-                <div className="space-y-1">
-                  <h3 className="text-[15px] font-bold text-[#232f48] leading-none">
-                    {stat.label}
-                  </h3>
-                  <p className="text-[13px] font-medium text-[#b5b8c3]">
-                    {stat.sub}
-                  </p>
-                </div>
-                
-              </div>
-            </TiltCard>
-          ))}
+  const carouselItems = stats.map((stat) => ({
+    content: (
+      <div className="flex h-full w-full flex-col items-center justify-center gap-6 rounded-[2rem] bg-[#f9fafc] p-10 text-center border border-neutral-100/50">
+        {/* Icon in light blue circle */}
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#eef2f9] text-brand-700">
+          {stat.icon}
         </div>
+        
+        {/* Thick dash instead of "—" text */}
+        <div className="h-[5px] w-8 rounded-full bg-navy-900" />
+        
+        {/* Text section */}
+        <div className="space-y-1.5">
+          <h3 className="text-[17px] font-bold text-[#1f2937] leading-tight">
+            {stat.label}
+          </h3>
+          <p className="text-[14px] font-medium text-[#9ca3af]">
+            {stat.sub}
+          </p>
+        </div>
+      </div>
+    )
+  }));
+
+  return (
+    <section className="border-b border-neutral-100 bg-white py-16 overflow-hidden">
+      <div className="container-page">
+        <CoverFlowCarousel items={carouselItems} />
+        
         <p className="mt-8 text-center text-xs font-medium text-neutral-400">
           — Placeholder values. Real statistics will be displayed once TutorMeet launches.
         </p>
