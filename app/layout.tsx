@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { APP_NAME, APP_DESCRIPTION } from "@/lib/constants";
 import { SITE_URL, OG_IMAGE_DEFAULT, websiteSchema, organizationSchema, jsonLd } from "@/lib/seo";
+import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 
 // ─── Root metadata ─────────────────────────────────────────────────────────────
 
@@ -116,7 +117,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <FloatingWhatsApp />
+      </body>
     </html>
   );
 }
