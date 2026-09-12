@@ -66,7 +66,7 @@ export function Navbar({ transparent = false }: NavbarProps) {
           )}
             style={{ letterSpacing: "-0.02em" }}
           >
-            <span>Tutor<span className="text-blue-600">Meet</span></span>
+            <span>Tutor<span className="text-blue-500">Meet</span></span>
           </span>
         </Link>
 
