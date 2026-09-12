@@ -242,8 +242,8 @@ export function SearchForm() {
       </div>
 
       {/* Floating badge */}
-      <div className="absolute -right-3 -top-3 flex items-center gap-1.5 rounded-full border border-accent-200 bg-accent-50 px-3 py-1.5 text-xs font-semibold text-accent-700 shadow-sm">
-        <span className="h-1.5 w-1.5 rounded-full bg-accent-500 animate-pulse" />
+      <div className="absolute -right-3 -top-3 flex items-center gap-1.5 rounded-full border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-700 shadow-sm">
+        <span className="h-1.5 w-1.5 rounded-full bg-teal-500 animate-pulse" />
         Free demo class
       </div>
     </div>
