@@ -1,0 +1,31 @@
+{
+  "name": "TutorMeet",
+  "short_name": "TutorMeet",
+  "description": "India's trusted home-tutor marketplace. Find verified, background-checked tutors in your locality.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d1e4a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["education"],
+  "lang": "en-IN"
+}
