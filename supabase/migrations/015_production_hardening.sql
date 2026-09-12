@@ -203,7 +203,8 @@ ALTER TABLE tutor_documents
 -- 6. Add updated_at trigger to enrollments
 -- ─────────────────────────────────────────────────────────────────────────────
 
-CREATE TRIGGER IF NOT EXISTS set_updated_at_enrollments
+DROP TRIGGER IF EXISTS set_updated_at_enrollments ON enrollments;
+CREATE TRIGGER set_updated_at_enrollments
   BEFORE UPDATE ON enrollments
   FOR EACH ROW
   EXECUTE FUNCTION trigger_set_updated_at();
