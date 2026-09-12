@@ -165,54 +165,66 @@ const stats = [
     value: "—",
     label: "Verified Tutors",
     sub: "Growing network",
-    icon: <Award className="h-6 w-6" />,
+    icon: <Award className="h-5 w-5" />,
+    image: "/images/stats/tutors.png",
   },
   {
     value: "—",
     label: "Students Helped",
     sub: "Across all grades",
-    icon: <Users className="h-6 w-6" />,
+    icon: <Users className="h-5 w-5" />,
+    image: "/images/stats/students.png",
   },
   {
     value: "—",
     label: "Parents Satisfied",
     sub: "Trusted by families",
-    icon: <Smile className="h-6 w-6" />,
+    icon: <Smile className="h-5 w-5" />,
+    image: "/images/stats/parents.png",
   },
   {
     value: "—",
     label: "Cities",
     sub: "Starting with Bengaluru",
-    icon: <MapPin className="h-6 w-6" />,
+    icon: <MapPin className="h-5 w-5" />,
+    image: "/images/stats/cities.png",
   },
   {
     value: "—",
     label: "Successful Matches",
     sub: "Tutor–student pairs",
-    icon: <Heart className="h-6 w-6" />,
+    icon: <Heart className="h-5 w-5" />,
+    image: "/images/stats/matches.png",
   },
 ];
 
 function StatsSection() {
   const carouselItems = stats.map((stat) => ({
     content: (
-      <div className="flex h-full w-full flex-col items-center justify-center gap-6 rounded-[2rem] bg-[#f9fafc] p-10 text-center border border-neutral-100/50">
-        {/* Icon in light blue circle */}
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#eef2f9] text-brand-700">
-          {stat.icon}
-        </div>
+      <div className="group relative flex h-full w-full flex-col justify-end overflow-hidden rounded-[2rem] border-0">
+        {/* Background Image */}
+        <img 
+          src={stat.image} 
+          alt={stat.label} 
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+        />
         
-        {/* Thick dash instead of "—" text */}
-        <div className="h-[5px] w-8 rounded-full bg-navy-900" />
+        {/* Gradient Overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
         
-        {/* Text section */}
-        <div className="space-y-1.5">
-          <h3 className="text-[17px] font-bold text-[#1f2937] leading-tight">
-            {stat.label}
-          </h3>
-          <p className="text-[14px] font-medium text-[#9ca3af]">
-            {stat.sub}
-          </p>
+        {/* Content */}
+        <div className="relative z-10 p-8 pb-10">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md shadow-lg">
+            {stat.icon}
+          </div>
+          <div className="space-y-1.5">
+            <h3 className="text-[20px] font-bold text-white leading-tight">
+              {stat.label}
+            </h3>
+            <p className="text-[14px] font-medium text-white/80">
+              {stat.sub}
+            </p>
+          </div>
         </div>
       </div>
     )
