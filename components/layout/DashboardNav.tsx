@@ -64,10 +64,10 @@ export function DashboardNav({
               <ShieldCheck className="h-4 w-4" />
             </div>
             <span
-              className="hidden text-base font-bold text-navy-900 sm:block tracking-tight"
+              className="hidden text-xl font-bold text-navy-900 sm:block tracking-tight"
               style={{ letterSpacing: "-0.02em" }}
             >
-              <span>Tutor<span className="text-blue-500">Meet</span></span>
+              <span>Tutor<span className="text-blue-600">Meet</span></span>
             </span>
           </Link>
 
@@ -210,7 +210,7 @@ export function DashboardNav({
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-900 text-white">
               <ShieldCheck className="h-3.5 w-3.5" />
             </div>
-            <span className="text-sm font-bold text-navy-900"><span>Tutor<span className="text-blue-500">Meet</span></span></span>
+            <span className="text-xl font-bold text-navy-900 tracking-tight"><span>Tutor<span className="text-blue-600">Meet</span></span></span>
           </Link>
           <button
             onClick={() => setOpen(false)}
