@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, ChevronDown, ArrowRight } from "lucide-react";
+import { Search, ChevronDown, ArrowRight, MapPin, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { GRADES, SUBJECTS, TIME_SLOTS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -13,19 +13,24 @@ function Field({
   label,
   children,
   required,
+  action,
 }: {
   label: string;
   children: React.ReactNode;
   required?: boolean;
+  action?: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold text-navy-700">
-        {label}
-        {required && (
-          <span className="ml-1 text-red-500" aria-hidden="true">*</span>
-        )}
-      </label>
+      <div className="flex items-center justify-between">
+        <label className="text-xs font-semibold text-navy-700">
+          {label}
+          {required && (
+            <span className="ml-1 text-red-500" aria-hidden="true">*</span>
+          )}
+        </label>
+        {action && action}
+      </div>
       {children}
     </div>
   );
@@ -121,6 +126,41 @@ export function SearchForm() {
   const [locality,     setLocality]     = useState("");
   const [timeSlot,     setTimeSlot]     = useState("");
   const [budget,       setBudget]       = useState("");
+  const [isLocating, setIsLocating] = useState(false);
+
+  async function handleDetectLocation() {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser");
+      return;
+    }
+    
+    setIsLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
+          const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+          const data = await res.json();
+          if (data && data.address) {
+            const detectedCity = data.address.city || data.address.town || data.address.village || data.address.state_district || "";
+            const detectedPincode = data.address.postcode || "";
+            if (detectedCity) setCity(detectedCity);
+            if (detectedPincode) setLocality(detectedPincode);
+          }
+        } catch (error) {
+          console.error("Error fetching location details:", error);
+          alert("Failed to detect location details. Please enter manually.");
+        } finally {
+          setIsLocating(false);
+        }
+      },
+      (error) => {
+        console.error("Geolocation error:", error);
+        alert("Location access denied or unavailable.");
+        setIsLocating(false);
+      }
+    );
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -184,7 +224,21 @@ export function SearchForm() {
 
             {/* Row 2: City + Locality */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <Field label="City" required>
+              <Field 
+    label="City" 
+    required 
+    action={
+      <button
+        type="button"
+        onClick={handleDetectLocation}
+        disabled={isLocating}
+        className="flex items-center gap-1 text-[10px] font-bold text-accent-600 hover:text-accent-700 disabled:opacity-50"
+      >
+        {isLocating ? <Loader2 className="h-3 w-3 animate-spin" /> : <MapPin className="h-3 w-3" />}
+        {isLocating ? "Locating..." : "Detect"}
+      </button>
+    }
+  >
                 <StyledInput
                   value={city}
                   onChange={setCity}
