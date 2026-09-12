@@ -249,7 +249,7 @@
     @apply btn bg-accent-500 text-white
            hover:bg-accent-600 active:bg-accent-700
            focus-visible:ring-accent-400
-           shadow-sm hover:shadow-teal;
+           shadow-sm hover:shadow-accent;
   }
 
   /* Outline — navy border */
@@ -425,7 +425,7 @@
   .verified-badge-lg {
     @apply inline-flex items-center gap-2 rounded-full
            bg-accent-600 px-4 py-1.5 text-sm font-semibold text-white
-           shadow-teal;
+           shadow-accent;
   }
 
   /* ─── Avatar ──────────────────────────────────────────────── */
@@ -644,7 +644,7 @@
 
   .step-number-done {
     @apply flex h-10 w-10 flex-shrink-0 items-center justify-center
-           rounded-full bg-accent-500 text-white shadow-teal;
+           rounded-full bg-accent-500 text-white shadow-accent;
   }
 
   .step-number-inactive {
