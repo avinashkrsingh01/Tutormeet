@@ -158,9 +158,20 @@ export const tutorExperienceEntrySchema = z.object({
 
 export const tutorExperienceSchema = z.object({
   years_of_experience: z.number().min(0).max(50),
-  experience:          z.array(tutorExperienceEntrySchema),
-  // Fresher flag — if true, experience array can be empty
   is_fresher:          z.boolean(),
+  experience:          z.any(), // Validated manually in superRefine
+}).superRefine((data, ctx) => {
+  if (!data.is_fresher) {
+    const parsed = z.array(tutorExperienceEntrySchema).min(1, "Add at least one experience").safeParse(data.experience);
+    if (!parsed.success) {
+      parsed.error.issues.forEach((issue) => {
+        ctx.addIssue({
+          ...issue,
+          path: ["experience", ...issue.path],
+        });
+      });
+    }
+  }
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
