@@ -43,7 +43,7 @@ DROP POLICY IF EXISTS tutor_documents_update_admin ON tutor_documents;
 CREATE POLICY "tutor_documents_own_select"
   ON tutor_documents FOR SELECT
   USING (
-    tutor_profile_id IN (
+    tutor_id IN (
       SELECT id FROM tutor_profiles WHERE user_id = auth.uid()
     )
   );
@@ -51,7 +51,7 @@ CREATE POLICY "tutor_documents_own_select"
 CREATE POLICY "tutor_documents_own_insert"
   ON tutor_documents FOR INSERT
   WITH CHECK (
-    tutor_profile_id IN (
+    tutor_id IN (
       SELECT id FROM tutor_profiles WHERE user_id = auth.uid()
     )
   );
