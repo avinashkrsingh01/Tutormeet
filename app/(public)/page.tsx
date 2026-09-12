@@ -166,6 +166,7 @@ const stats = [
     label: "Verified Tutors",
     sub: "Growing network",
     icon: <Award className="h-5 w-5" />,
+    iconText: "500+",
     image: "/images/stats/tutors.png",
   },
   {
@@ -173,6 +174,7 @@ const stats = [
     label: "Students Helped",
     sub: "Across all grades",
     icon: <Users className="h-5 w-5" />,
+    iconText: "2500+",
     image: "/images/stats/students.png",
   },
   {
@@ -180,13 +182,15 @@ const stats = [
     label: "Parents Satisfied",
     sub: "Trusted by families",
     icon: <Smile className="h-5 w-5" />,
+    iconText: "1800+",
     image: "/images/stats/parents.png",
   },
   {
     value: "—",
     label: "Cities",
-    sub: "Starting with Bengaluru",
+    sub: "Present in Cities ⭐",
     icon: <MapPin className="h-5 w-5" />,
+    iconText: "50+",
     image: "/images/stats/cities.png",
   },
   {
@@ -194,6 +198,7 @@ const stats = [
     label: "Successful Matches",
     sub: "Tutor–student pairs",
     icon: <Heart className="h-5 w-5" />,
+    iconText: "2000+",
     image: "/images/stats/matches.png",
   },
 ];
@@ -214,8 +219,15 @@ function StatsSection() {
         
         {/* Content */}
         <div className="relative z-10 p-8 pb-10">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md shadow-lg">
+          <div 
+            className={`mb-4 inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-white/20 text-white shadow-lg backdrop-blur-md ${
+              stat.iconText ? 'px-4' : 'w-12'
+            }`}
+          >
             {stat.icon}
+            {stat.iconText && (
+              <span className="text-sm font-bold tracking-wide">{stat.iconText}</span>
+            )}
           </div>
           <div className="space-y-1.5">
             <h3 className="text-[20px] font-bold text-white leading-tight">
@@ -231,11 +243,14 @@ function StatsSection() {
   }));
 
   return (
-    <section className="border-b border-neutral-100 bg-white py-16 overflow-hidden">
-      <div className="container-page">
+    <section className="relative overflow-hidden border-y border-slate-800/50 bg-[#0B0F19] py-20">
+      {/* Subtle radial spotlight effect in the center behind the carousel */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-brand-500/10 blur-[100px] pointer-events-none" />
+      
+      <div className="container-page relative z-10">
         <CoverFlowCarousel items={carouselItems} />
         
-        <p className="mt-8 text-center text-xs font-medium text-neutral-400">
+        <p className="mt-8 text-center text-xs font-medium text-slate-500">
           — Placeholder values. Real statistics will be displayed once TutorMeet launches.
         </p>
       </div>
