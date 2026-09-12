@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, ReactNode } from "react";
+import React, { useState, useEffect, ReactNode, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
 interface CoverFlowCarouselProps {
@@ -11,50 +11,71 @@ interface CoverFlowCarouselProps {
 }
 
 export function CoverFlowCarousel({ items, className }: CoverFlowCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(Math.floor(items.length / 2));
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const len = items.length;
+
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % len);
+  }, [len]);
+
+  // Auto-play every 4 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [nextSlide]);
 
   return (
-    <div className={cn("relative flex h-[400px] w-full items-center justify-center overflow-hidden", className)}>
+    <div className={cn("relative flex h-[420px] w-full items-center justify-center overflow-hidden", className)}>
       <div 
         className="relative flex h-full w-full max-w-5xl items-center justify-center" 
-        style={{ perspective: "1500px" }}
+        style={{ perspective: "1200px" }}
       >
         {items.map((item, index) => {
-          const isActive = index === currentIndex;
-          const offset = index - currentIndex;
+          // Calculate circular offset
+          let offset = index - currentIndex;
+          if (offset > Math.floor(len / 2)) {
+            offset -= len;
+          } else if (offset < -Math.floor(len / 2)) {
+            offset += len;
+          }
+          
+          const isActive = offset === 0;
           const direction = Math.sign(offset);
           const absOffset = Math.abs(offset);
           
-          // Calculate z-index: middle is highest
+          // Z-index: center is highest, edges are lowest
           const zIndex = 50 - absOffset;
           
-          // Calculate scale: middle is 1, others scale down
+          // Scale: center is 1, sides get smaller
           const scale = isActive ? 1 : Math.max(0.6, 1 - absOffset * 0.15);
           
-          // Calculate translateX: bring them closer together so they overlap
-          // On mobile, reduce the offset so they don't go offscreen
-          const translateX = `calc(${offset * 140}px)`; 
+          // Translate X: space them out
+          const translateX = offset * 160;
           
-          // Calculate rotateY: left cards rotate right, right cards rotate left
-          const rotateY = isActive ? 0 : direction * -45; 
+          // Translate Y: curve downwards slightly for the outer cards
+          const translateY = absOffset * 25;
           
-          // Calculate opacity: hide cards that are too far away
-          const opacity = absOffset > 2 ? 0 : isActive ? 1 : 0.7;
+          // Rotate Y: tilt inwards towards the center
+          // left cards rotate positive (right), right cards rotate negative (left)
+          const rotateY = isActive ? 0 : direction * -35; 
+          
+          // Opacity: center is fully opaque, sides are slightly faded
+          const opacity = isActive ? 1 : 0.6;
           
           return (
             <div
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={cn(
-                "absolute cursor-pointer transition-all duration-500 ease-out",
+                "absolute cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)]",
                 isActive ? "shadow-2xl" : "shadow-lg hover:opacity-100"
               )}
               style={{
                 zIndex,
                 opacity,
-                transform: `translateX(${translateX}) scale(${scale}) rotateY(${rotateY}deg)`,
-                pointerEvents: absOffset > 2 ? "none" : "auto",
-                // Set a fixed width/height for the cards
+                transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale}) rotateY(${rotateY}deg)`,
                 width: "280px", 
                 height: "300px",
                 borderRadius: "2rem",
@@ -67,8 +88,8 @@ export function CoverFlowCarousel({ items, className }: CoverFlowCarouselProps) 
         })}
       </div>
       
-      {/* Optional: pagination dots */}
-      <div className="absolute bottom-4 flex gap-2">
+      {/* Pagination dots */}
+      <div className="absolute bottom-2 flex gap-2">
         {items.map((_, idx) => (
           <button
             key={idx}
