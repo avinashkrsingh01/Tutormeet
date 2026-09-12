@@ -86,16 +86,17 @@ const config: Config = {
         },
 
         accent: {
-          50:  "#f0fdfa",
-          100: "#ccfbf1",
-          200: "#99f6e4",
-          300: "#5eead4",
-          400: "#2dd4bf",
-          500: "#14b8a6",
-          600: "#0d9488",
-          700: "#0f766e",
-          800: "#115e59",
-          900: "#134e4a",
+          50:  "#eff6ff",
+          100: "#dbeafe",
+          200: "#bfdbfe",
+          300: "#93c5fd",
+          400: "#60a5fa",
+          500: "#3b82f6",
+          600: "#2563eb",
+          700: "#1d4ed8",
+          800: "#1e40af",
+          900: "#1e3a8a",
+          950: "#172554",
         },
 
         // Surface colors
@@ -152,7 +153,7 @@ const config: Config = {
         "2xl":   "0 24px 60px -8px rgb(0 0 0 / 0.12)",
         // Colored glows for active/hover states
         "navy":  "0 4px 20px -2px rgb(14 30 74 / 0.20)",
-        "teal":  "0 4px 20px -2px rgb(13 148 136 / 0.25)",
+        "accent":  "0 4px 20px -2px rgb(59 130 246 / 0.25)",
         "inner": "inset 0 2px 4px 0 rgb(0 0 0 / 0.05)",
         "none":  "none",
       },

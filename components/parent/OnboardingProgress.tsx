@@ -39,7 +39,7 @@ export function OnboardingProgress({
                   className={cn(
                     "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold transition-all duration-200",
                     done
-                      ? "bg-accent-500 text-white shadow-teal"
+                      ? "bg-accent-500 text-white shadow-accent"
                       : active
                       ? "bg-brand-900 text-white shadow-navy ring-4 ring-brand-100"
                       : "border-2 border-neutral-200 bg-white text-neutral-400"
