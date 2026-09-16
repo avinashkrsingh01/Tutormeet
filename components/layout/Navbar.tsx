@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { APP_NAME } from "@/lib/constants";
@@ -23,15 +24,18 @@ const navLinks = [
 export function Navbar({ transparent = false }: NavbarProps) {
   const [mobileOpen, setMobileOpen]   = useState(false);
   const [scrolled,   setScrolled]     = useState(false);
+  const pathname                      = usePathname();
+
+  const isHomePage = pathname === "/";
+  // Only use transparent mode on the home page, otherwise force opaque so text is visible
+  const isOpaque = (!transparent || !isHomePage) || scrolled || mobileOpen;
 
   useEffect(() => {
-    if (!transparent) return;
+    if (!transparent || !isHomePage) return;
     const onScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [transparent]);
-
-  const isOpaque = !transparent || scrolled || mobileOpen;
+  }, [transparent, isHomePage]);
 
   return (
     <header
@@ -78,20 +82,27 @@ export function Navbar({ transparent = false }: NavbarProps) {
 
         {/* ── Desktop nav links ──────────────────────────────────── */}
         <div className="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "rounded-lg px-3.5 py-2 text-sm font-medium transition-colors duration-150",
-                isOpaque
-                  ? "text-neutral-600 hover:bg-neutral-100 hover:text-navy-900"
-                  : "text-white/80 hover:bg-white/10 hover:text-white"
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "rounded-lg px-3.5 py-2 text-sm font-medium transition-colors duration-150",
+                  isOpaque
+                    ? isActive 
+                      ? "text-brand-600 bg-brand-50" 
+                      : "text-neutral-600 hover:bg-neutral-100 hover:text-navy-900"
+                    : isActive 
+                      ? "text-white font-bold bg-white/20" 
+                      : "text-white/80 hover:bg-white/10 hover:text-white"
+                )}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
 
         {/* ── Desktop CTAs ───────────────────────────────────────── */}

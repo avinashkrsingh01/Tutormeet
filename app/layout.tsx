@@ -71,12 +71,12 @@ export const metadata: Metadata = {
     images:      [OG_IMAGE_DEFAULT.url],
   },
 
-  // App icons — place actual files in /public/icons/
+  // App icons — prioritize multiples of 48px for Google Search
   icons: {
     icon: [
-      { url: "/icons/favicon-16x16.png",  sizes: "16x16",  type: "image/png" },
-      { url: "/icons/favicon-32x32.png",  sizes: "32x32",  type: "image/png" },
-      { url: "/icons/favicon-96x96.png",  sizes: "96x96",  type: "image/png" },
+      { url: "/icons/icon-192x192.png",  sizes: "192x192", type: "image/png" },
+      { url: "/icons/favicon-96x96.png", sizes: "96x96",   type: "image/png" },
+      { url: "/icons/favicon-32x32.png", sizes: "32x32",   type: "image/png" },
     ],
     apple:    "/icons/apple-touch-icon.png",
     shortcut: "/icons/favicon.ico",
@@ -119,7 +119,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <LocationProvider>
           {children}
           <LocationModal />

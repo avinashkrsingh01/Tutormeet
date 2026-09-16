@@ -44,7 +44,7 @@ export async function middleware(request: NextRequest) {
 
   // 3 — Enforce role-based route protection
   for (const [prefix, allowedRoles] of Object.entries(PROTECTED_ROUTES)) {
-    if (!pathname.startsWith(prefix)) continue;
+    if (!pathname.startsWith(`${prefix}/`) && pathname !== prefix) continue;
 
     // Not logged in → send to /login with return-path
     if (!user) {
