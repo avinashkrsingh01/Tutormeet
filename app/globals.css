@@ -717,14 +717,26 @@
   }
 
   /* Subtle background patterns */
+  @keyframes float-pattern {
+    0% { background-position: 0px 0px; }
+    100% { background-position: 24px 24px; }
+  }
+
+  @keyframes float-pattern-white {
+    0% { background-position: 0px 0px; }
+    100% { background-position: 28px 28px; }
+  }
+
   .bg-dot-pattern {
     background-image: radial-gradient(circle at 1.5px 1.5px, rgb(0 0 0 / 0.06) 1.5px, transparent 0);
     background-size: 24px 24px;
+    animation: float-pattern 5s linear infinite;
   }
 
   .bg-dot-pattern-white {
     background-image: radial-gradient(circle at 1.5px 1.5px, rgb(255 255 255 / 0.12) 1.5px, transparent 0);
     background-size: 28px 28px;
+    animation: float-pattern-white 6s linear infinite;
   }
 
   .bg-grid-pattern {
@@ -791,4 +803,43 @@
     -ms-overflow-style: none;
   }
   .scrollbar-hidden::-webkit-scrollbar { display: none; }
+
+  /* Tagline Animation */
+  .tagline-word-find, .tagline-word-meet, .tagline-word-learn {
+    animation-duration: 7s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+  }
+
+  .tagline-word-find {
+    animation-name: tagline-find;
+  }
+  .tagline-word-meet {
+    animation-name: tagline-meet;
+  }
+  .tagline-word-learn {
+    animation-name: tagline-learn;
+  }
+
+  @keyframes tagline-find {
+    0%, 9% { opacity: 0; color: currentColor; }
+    10%, 39% { opacity: 1; color: currentColor; }
+    40%, 90% { opacity: 1; color: #FF9933; } /* Saffron */
+    91%, 100% { opacity: 0; color: currentColor; }
+  }
+
+  @keyframes tagline-meet {
+    0%, 19% { opacity: 0; color: currentColor; }
+    20%, 39% { opacity: 1; color: currentColor; }
+    40%, 90% { opacity: 1; color: #FFFFFF; } /* White */
+    91%, 100% { opacity: 0; color: currentColor; }
+  }
+
+  @keyframes tagline-learn {
+    0%, 29% { opacity: 0; color: currentColor; }
+    30%, 39% { opacity: 1; color: currentColor; }
+    40%, 90% { opacity: 1; color: #138808; } /* Green */
+    91%, 100% { opacity: 0; color: currentColor; }
+  }
 }

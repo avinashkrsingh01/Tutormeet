@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, LogOut, ShieldCheck } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
+import { Logo } from "@/components/ui/Logo";
 import { APP_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { logoutAction } from "@/app/actions/auth";
@@ -55,27 +56,13 @@ export function DashboardNav({
         <div className="container-page flex h-14 items-center justify-between gap-2 sm:h-15 sm:gap-4">
 
           {/* Logo */}
-          <Link
-            href="/"
-            className="group flex items-center gap-2 flex-shrink-0"
-            aria-label="TutorMeet home"
-          >
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-900 text-white transition-colors group-hover:bg-brand-800">
-              <ShieldCheck className="h-4 w-4" />
-            </div>
-            <span
-              className="hidden text-xl font-bold text-navy-900 sm:block tracking-tight"
-              style={{ letterSpacing: "-0.02em" }}
-            >
-              <span>Tutor<span className="text-blue-500">Meet</span></span>
-            </span>
-          </Link>
+          <Logo />
 
           {/* ── Desktop + tablet nav (md icon-only, lg full labels) ── */}
           {/* md (768–1023px): icon-only pills in a scrollable row        */}
           {/* lg (1024px+):    icons + labels in a scrollable row         */}
           <nav
-            className="hidden md:flex flex-1 items-center justify-center overflow-x-auto scrollbar-hidden px-2"
+            className="hidden md:flex flex-1 items-center justify-start overflow-x-auto scrollbar-hidden px-2"
             aria-label="Main navigation"
           >
             <div className="flex items-center gap-0.5">
@@ -91,7 +78,7 @@ export function DashboardNav({
                     title={item.label}
                     className={cn(
                       // Base: icon-only on md, labeled on lg
-                      "relative flex items-center justify-center rounded-xl transition-all duration-150",
+                      "relative flex items-center justify-center rounded-xl transition-all duration-150 flex-shrink-0",
                       // md: square icon pill
                       "md:h-10 md:w-10",
                       // lg: switch to labeled nav item

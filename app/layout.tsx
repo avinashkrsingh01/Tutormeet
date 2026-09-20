@@ -71,15 +71,11 @@ export const metadata: Metadata = {
     images:      [OG_IMAGE_DEFAULT.url],
   },
 
-  // App icons — prioritize multiples of 48px for Google Search
+  // App icons
   icons: {
-    icon: [
-      { url: "/icons/icon-192x192.png",  sizes: "192x192", type: "image/png" },
-      { url: "/icons/favicon-96x96.png", sizes: "96x96",   type: "image/png" },
-      { url: "/icons/favicon-32x32.png", sizes: "32x32",   type: "image/png" },
-    ],
-    apple:    "/icons/apple-touch-icon.png",
-    shortcut: "/icons/favicon.ico",
+    icon: "/icon.png",
+    apple: "/icons/apple-touch-icon.png",
+    shortcut: "/icon.png",
   },
 
   // Web app manifest

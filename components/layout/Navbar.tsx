@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { Logo } from "@/components/ui/Logo";
 import { APP_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { LocationNavButton } from "./LocationNavButton";
@@ -51,30 +52,7 @@ export function Navbar({ transparent = false }: NavbarProps) {
 
         {/* ── Logo & Location ────────────────────────────────────── */}
         <div className="flex items-center gap-4">
-          <Link
-            href="/"
-            className="flex items-center gap-2.5 group"
-            aria-label="TutorMeet home"
-          >
-            {/* Logo mark */}
-            <Image 
-              src="/icons/icon-192x192.png" 
-              alt="TutorMeet Logo" 
-              width={32} 
-              height={32} 
-              className="h-8 w-8"
-            />
-
-            {/* Wordmark */}
-            <span className={cn(
-              "text-2xl font-bold tracking-tight transition-colors",
-              isOpaque ? "text-navy-900" : "text-white"
-            )}
-              style={{ letterSpacing: "-0.02em" }}
-            >
-              <span>Tutor<span className="text-blue-500">Meet</span></span>
-            </span>
-          </Link>
+          <Logo lightText={!isOpaque} />
 
           {/* Location Picker (Amazon style) */}
           <LocationNavButton isOpaque={isOpaque} />

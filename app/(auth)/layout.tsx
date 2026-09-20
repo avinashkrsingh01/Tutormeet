@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { APP_NAME, APP_TAGLINE } from "@/lib/constants";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
+import { Logo } from "@/components/ui/Logo";
 
 export default function AuthLayout({
   children,
@@ -18,21 +19,7 @@ export default function AuthLayout({
         <div className="absolute -bottom-[20%] -right-[20%] h-[70%] w-[70%] rounded-full bg-brand-500/10 blur-[120px]" />
 
         <div className="relative z-10">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-3 transition-transform hover:scale-105"
-          >
-            <Image 
-              src="/icons/icon-192x192.png" 
-              alt="TutorMeet Logo" 
-              width={40} 
-              height={40} 
-              className="h-10 w-10 shadow-sm"
-            />
-            <span className="text-2xl font-bold tracking-tight">
-              <span className="text-navy-900">Tutor</span><span className="text-blue-500">Meet</span>
-            </span>
-          </Link>
+          <Logo className="transition-transform hover:scale-105" />
           <h1 className="mt-16 text-4xl font-bold leading-tight tracking-tight text-navy-900">
             Find the perfect home tutor for your child.
           </h1>
@@ -58,18 +45,7 @@ export default function AuthLayout({
         
         {/* Mobile Header (Only visible on small screens) */}
         <div className="absolute top-6 left-6 lg:hidden">
-          <Link href="/" className="inline-flex items-center gap-2">
-            <Image 
-              src="/icons/icon-192x192.png" 
-              alt="TutorMeet Logo" 
-              width={32} 
-              height={32} 
-              className="h-8 w-8 shadow-sm"
-            />
-            <span className="text-xl font-bold tracking-tight">
-              <span className="text-navy-900">Tutor</span><span className="text-blue-500">Meet</span>
-            </span>
-          </Link>
+          <Logo />
         </div>
 
         <div className="w-full max-w-md">

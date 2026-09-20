@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ShieldCheck, MapPin } from "lucide-react";
+import { MapPin, ShieldCheck } from "lucide-react";
 import { APP_NAME, APP_TAGLINE } from "@/lib/constants";
+import { Logo } from "@/components/ui/Logo";
 
 const footerLinks = {
   product: [
@@ -38,23 +39,7 @@ export function Footer() {
 
           {/* Brand */}
           <div className="md:col-span-4 lg:col-span-5">
-            <Link
-              href="/"
-              className="group mb-5 flex items-center gap-2.5"
-              aria-label="TutorMeet home"
-            >
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-accent-500 text-white transition-colors group-hover:bg-accent-400">
-                <ShieldCheck className="h-4 w-4" />
-              </div>
-              <div>
-                <span
-                  className="block text-lg font-bold text-white tracking-tight"
-                  style={{ letterSpacing: "-0.02em" }}
-                >
-                  <span>Tutor<span className="text-blue-500">Meet</span></span>
-                </span>
-              </div>
-            </Link>
+            <Logo className="mb-5" lightText={true} />
 
             <p className="mb-1.5 text-sm font-semibold text-neutral-300">
               {APP_TAGLINE}

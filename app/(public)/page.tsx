@@ -79,10 +79,15 @@ function HeroSection() {
             </div>
 
             {/* Brand name */}
-            <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-accent-400"
+            <div className="mb-2 text-sm font-semibold uppercase tracking-widest text-accent-400 flex items-center flex-wrap"
               style={{ letterSpacing: "0.15em" }}>
-              {APP_NAME} — {APP_TAGLINE}
-            </p>
+              <span>{APP_NAME} —&nbsp;</span>
+              <span className="inline-flex gap-1">
+                <span className="tagline-word-find">FIND.</span>
+                <span className="tagline-word-meet">MEET.</span>
+                <span className="tagline-word-learn">LEARN.</span>
+              </span>
+            </div>
 
             {/* Headline */}
             <h1
